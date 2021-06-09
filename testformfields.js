@@ -7,9 +7,9 @@
 
     sourceControlInstance.on('value-change', function () {
       const values = sourceControlInstance.getValue();
-      targetControlInstance.setValue(values.values.join());
+      targetControlInstance.setValue({ value: values.values.join() });
     });
 
-    targetControlInstance.setValue(sourceControlInstance.getValue().values.join());
+    targetControlInstance.setValue({ value: sourceControlInstance.getValue().values.join() });
   });
 })();
