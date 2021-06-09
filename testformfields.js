@@ -1,7 +1,7 @@
 (function () {
   window.addEventListener('load', function () {
-    var sourceControlId = 97270677,
-      targetControlId = 97270574,
+    var sourceControlId = 97270574,
+      targetControlId = 97270677,
       sourceControlInstance = loader.getEngine().getDocument().getElementById(sourceControlId),
       targetControlInstance = loader.getEngine().getDocument().getElementById(targetControlId);
 
