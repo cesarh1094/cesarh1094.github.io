@@ -2,7 +2,7 @@
   window.addEventListener('load', function () {
     // Hobbies Related
     const hobbiesControlID = 97270574;
-    const hobbisHiddenControlID = 97270574;
+    const hobbisHiddenControlID = 97270677;
     const hobbiesCheckBoxField = loader.getEngine().getDocument().getElementById(hobbiesControlID);
     const hobbiesHiddenTextField = loader.getEngine().getDocument().getElementById(hobbisHiddenControlID);
 
@@ -29,13 +29,13 @@
     animalsHiddenTextField.setValue({ value: animalsCheckBoxField.getValue().values.join() });
 
     // Colors Related
-    const colorsControlID = 97487815;
+    const colorsControlID = 97387815;
     const colorsHiddenControlID = 97387818;
     const colorsCheckBoxField = loader.getEngine().getDocument().getElementById(colorsControlID);
     const colorsHiddenTextField = loader.getEngine().getDocument().getElementById(colorsHiddenControlID);
 
     colorsCheckBoxField.on('value-change', function () {
-      const checkBoxes = animalsCheckBoxField.getValue();
+      const checkBoxes = colorsCheckBoxField.getValue();
 
       colorsHiddenTextField.setValue({ value: checkBoxes.values.join() });
     });
