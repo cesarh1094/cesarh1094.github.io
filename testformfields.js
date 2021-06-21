@@ -167,5 +167,64 @@
       // Reset hidden field when value of dropdown is NO LONGER 'Other'
       educationLevelHiddenField.setValue({ value: '' });
     });
+
+    // Education Level field IDs
+    const coachingDropDownFieldID = 97500189;
+    const coachingOtherFieldID = 97500201;
+    const coachingHiddenFieldID = 97500204;
+
+    // Education Level fields (as objects)
+    const coachingDropDownField = loader.getEngine().getDocument().getElementById(coachingDropDownFieldID);
+    const coachingOtherField = loader.getEngine().getDocument().getElementById(coachingOtherFieldID);
+    const coachingHiddenField = loader.getEngine().getDocument().getElementById(coachingHiddenFieldID);
+
+    // The following is triggered when the "Other Education" text field changes
+    coachingOtherField.on('value-change', function () {
+      const dropdownValue = coachingDropDownField.getValue();
+
+      // Hidden field should not be filled if dropdown if NOT 'other'
+      if ('Other' !== dropdownValue.value) {
+        return;
+      }
+
+      const other = coachingOtherField.getValue().value;
+
+      // Don't fill hidden field with "null" value
+      if (!other) {
+        coachingHiddenField.setValue({ value: '' });
+
+        return;
+      }
+
+      // As user types in field, fill hidden field
+      coachingHiddenField.setValue({
+        value: 'Demographics > Political Party: ' + other,
+      });
+    });
+
+    // The following is triggered when the "Please choose your highest level of education" dropdown field changes
+    coachingDropDownField.on('value-change', function () {
+      const dropdownValue = coachingDropDownField.getValue();
+
+      if ('Other' === dropdownValue.value) {
+        const other = coachingOtherField.getValue().value;
+
+        if (!other) {
+          coachingHiddenField.setValue({ value: '' });
+
+          return;
+        }
+
+        // As user types in field, fill hidden field
+        coachingHiddenField.setValue({
+          value: 'Demographics > Political Party: ' + other,
+        });
+
+        return;
+      }
+
+      // Reset hidden field when value of dropdown is NO LONGER 'Other'
+      coachingHiddenField.setValue({ value: '' });
+    });
   });
 })();
