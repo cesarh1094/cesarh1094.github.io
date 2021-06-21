@@ -69,9 +69,11 @@
         return;
       }
 
-      // Set comma-separated value to Ethnicity hidden field
-      // -> "checkbox value 1,checkbox value 2, ..."
-      politicalHiddenField.setValue({ value: politicalOtherField.value().value });
+      politicalOtherField.on('value-change', function () {
+        // Set comma-separated value to Ethnicity hidden field
+        // -> "checkbox value 1,checkbox value 2, ..."
+        politicalHiddenField.setValue({ value: politicalOtherField.getValue().value });
+      });
     });
 
     // IDs of Issues fields
