@@ -58,22 +58,27 @@
     const politicalOtherField = loader.getEngine().getDocument().getElementById(politicalOtherFieldID);
     const politicalHiddenField = loader.getEngine().getDocument().getElementById(politicalHiddenID);
 
-    // This is ran every time a checkbox changes from "checked" to "not checked"
-    politicalDropDownField.on('value-change', function () {
-      // Get current "state" of checkboxes
+    // Other Political Affialiation field
+    politicalOtherField.on('value-change', function () {
       const dropdownValue = politicalDropDownField.getValue();
 
-      console.log(dropdownValue);
-
+      // Hidden field should not be filled if dropdown if NOT 'other'
       if ('Other' !== dropdownValue.value) {
         return;
       }
 
-      politicalOtherField.on('value-change', function () {
-        // Set comma-separated value to Ethnicity hidden field
-        // -> "checkbox value 1,checkbox value 2, ..."
-        politicalHiddenField.setValue({ value: politicalOtherField.getValue().value });
-      });
+      // As user types in field, fill hidden field
+      politicalHiddenField.setValue({ value: politicalOtherField.getValue().value });
+    });
+
+    //
+    politicalDropDownField.on('value-change', function () {
+      if ('Other' === dropdownValue.value) {
+        return;
+      }
+
+      // Reset hidden field when value of dropdown is NO LONGER 'other'
+      politicalHiddenField.setValue({ value: '' });
     });
 
     // IDs of Issues fields
