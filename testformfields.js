@@ -50,6 +50,30 @@
     // -> "checkbox value 1,checkbox value 2, ..."
     genderHiddenField.setValue({ value: genderCheckBoxesField.getValue().values.join() });
 
+    const politicalDropDownFieldID = 97497873;
+    const politicalOtherFieldID = 97500115;
+    const politicalHiddenID = 97387818;
+
+    const politicalDropDownField = loader.getEngine().getDocument().getElementById(politicalDropDownFieldID);
+    const politicalOtherField = loader.getEngine().getDocument().getElementById(politicalOtherFieldID);
+    const politicalHiddenField = loader.getEngine().getDocument().getElementById(politicalHiddenID);
+
+    // This is ran every time a checkbox changes from "checked" to "not checked"
+    politicalDropDownField.on('value-change', function () {
+      // Get current "state" of checkboxes
+      const dropdownValue = politicalDropDownField.getValue();
+
+      console.log(dropdownValue);
+
+      if ('Other' !== dropdownValue.value) {
+        return;
+      }
+
+      // Set comma-separated value to Ethnicity hidden field
+      // -> "checkbox value 1,checkbox value 2, ..."
+      politicalHiddenField.setValue({ value: politicalOtherField.value().value });
+    });
+
     // IDs of Issues fields
     const issueCheckBoxFieldID = 97387815;
     const issuesHiddenFieldID = 97387818;
