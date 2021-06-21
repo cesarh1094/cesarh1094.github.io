@@ -226,5 +226,65 @@
       // Reset hidden field when value of dropdown is NO LONGER 'Other'
       coachingHiddenField.setValue({ value: '' });
     });
+
+    // Education Level field IDs
+    const contactDropDownFieldID = 97500250;
+    const contactOtherFieldID = 97500253;
+    const contactHiddenFieldID = 97500331;
+
+    // Education Level fields (as objects)
+    const contactDropDownField = loader.getEngine().getDocument().getElementById(contactDropDownFieldID);
+    const contactOtherField = loader.getEngine().getDocument().getElementById(contactOtherFieldID);
+    const contactHiddenField = loader.getEngine().getDocument().getElementById(contactHiddenFieldID);
+
+    // The following is triggered when the "Other Education" text field changes
+    contactOtherField.on('value-change', function () {
+      const dropdownValue = contactDropDownField.getValue();
+
+      // Hidden field should not be filled if dropdown if NOT 'other'
+      if ('Other' !== dropdownValue.value) {
+        return;
+      }
+
+      const other = contactOtherField.getValue().value;
+
+      // Don't fill hidden field with "null" value
+      if (!other) {
+        contactHiddenField.setValue({ value: '' });
+
+        return;
+      }
+
+      // As user types in field, fill hidden field
+      contactHiddenField.setValue({
+        value: 'Contact mode: ' + other,
+      });
+    });
+
+    // The following is triggered when the "Please choose your highest level of education" dropdown field changes
+    contactDropDownField.on('value-change', function () {
+      const dropdownValue = contactDropDownField.getValue();
+
+      if ('Other' === dropdownValue.value) {
+        const other = contactOtherField.getValue().value;
+
+        if (!other) {
+          contactHiddenField.setValue({ value: '' });
+
+          return;
+        }
+
+        // As user types in field, fill hidden field
+        contactHiddenField.setValue({
+          value: 'Contact mode:' + other,
+        });
+
+        return;
+      }
+
+      // Reset hidden field when value of dropdown is NO LONGER 'Other'
+      contactHiddenField.setValue({ value: '' });
+    });
+  })
   });
 })();
