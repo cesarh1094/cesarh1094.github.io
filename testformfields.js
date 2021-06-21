@@ -50,6 +50,7 @@
     // -> "checkbox value 1,checkbox value 2, ..."
     genderHiddenField.setValue({ value: genderCheckBoxesField.getValue().values.join() });
 
+    // Political field IDs
     const politicalDropDownFieldID = 97497873;
     const politicalOtherFieldID = 97500115;
     const politicalHiddenID = 97387818;
@@ -68,7 +69,9 @@
       }
 
       // As user types in field, fill hidden field
-      politicalHiddenField.setValue({ value: politicalOtherField.getValue().value });
+      politicalHiddenField.setValue({
+        value: 'Demographics > Political Party: ' + politicalOtherField.getValue().value,
+      });
     });
 
     politicalDropDownField.on('value-change', function () {
