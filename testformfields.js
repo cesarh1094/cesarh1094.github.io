@@ -139,7 +139,7 @@
 
       // As user types in field, fill hidden field
       educationLevelHiddenField.setValue({
-        value: 'Demographics > Political Party: ' + other,
+        value: 'Demographics > Education: ' + other,
       });
     });
 
@@ -158,7 +158,7 @@
 
         // As user types in field, fill hidden field
         educationLevelHiddenField.setValue({
-          value: 'Demographics > Political Party: ' + other,
+          value: 'Demographics > Education: ' + other,
         });
 
         return;
@@ -198,7 +198,7 @@
 
       // As user types in field, fill hidden field
       coachingHiddenField.setValue({
-        value: 'Demographics > Political Party: ' + other,
+        value: 'Coaching lead: ' + other,
       });
     });
 
@@ -217,7 +217,7 @@
 
         // As user types in field, fill hidden field
         coachingHiddenField.setValue({
-          value: 'Demographics > Political Party: ' + other,
+          value: 'Coaching lead: ' + other,
         });
 
         return;
