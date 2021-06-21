@@ -89,6 +89,8 @@
         const other = politicalOtherField.getValue().value;
 
         if (!other) {
+          politicalHiddenField.setValue({ value: '' });
+
           return;
         }
 
