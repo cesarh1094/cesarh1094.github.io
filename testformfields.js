@@ -1,45 +1,75 @@
 (function () {
   window.addEventListener('load', function () {
-    // Hobbies Related
-    const hobbiesControlID = 97270574;
-    const hobbisHiddenControlID = 97270677;
-    const hobbiesCheckBoxField = loader.getEngine().getDocument().getElementById(hobbiesControlID);
-    const hobbiesHiddenTextField = loader.getEngine().getDocument().getElementById(hobbisHiddenControlID);
+    // Ethnicity fields
 
-    hobbiesCheckBoxField.on('value-change', function () {
-      const checkBoxes = hobbiesCheckBoxField.getValue();
+    // IDs of Ethnicity fields
+    const ethnicityCheckBoxesFieldID = 97270574;
+    const ethnicityHiddenFieldID = 97270677;
 
-      hobbiesHiddenTextField.setValue({ value: checkBoxes.values.join() });
+    // Fields
+    const ethnicityCheckBoxField = loader.getEngine().getDocument().getElementById(ethnicityCheckBoxesFieldID);
+    const ethnicityHiddenField = loader.getEngine().getDocument().getElementById(ethnicityHiddenFieldID);
+
+    // This is ran every time a checkbox changes from "checked" to "not checked"
+    ethnicityCheckBoxField.on('value-change', function () {
+      // Get current "state" of checkboxes
+      const checkBoxes = ethnicityCheckBoxField.getValue();
+
+      // Set comma-separated value to Ethnicity hidden field
+      // -> "checkbox value 1,checkbox value 2, ..."
+      ethnicityHiddenField.setValue({ value: checkBoxes.values.join() });
     });
 
-    hobbiesHiddenTextField.setValue({ value: hobbiesCheckBoxField.getValue().values.join() });
+    // Set comma-separated value to Ethnicity hidden field
+    // -> "checkbox value 1,checkbox value 2, ..."
+    ethnicityHiddenField.setValue({ value: ethnicityCheckBoxField.getValue().values.join() });
 
-    // Animals Related
-    const animalControlID = 97387782;
-    const animalHiddenControlID = 97387801;
-    const animalsCheckBoxField = loader.getEngine().getDocument().getElementById(animalControlID);
-    const animalsHiddenTextField = loader.getEngine().getDocument().getElementById(animalHiddenControlID);
+    // IDs of Gender fields
+    const genderCheckBoxesFieldID = 97387782;
+    const genderHiddenFieldID = 97387801;
 
-    animalsCheckBoxField.on('value-change', function () {
-      const checkBoxes = animalsCheckBoxField.getValue();
+    // Fields
+    const genderCheckBoxesField = loader.getEngine().getDocument().getElementById(genderCheckBoxesFieldID);
+    const genderHiddenField = loader.getEngine().getDocument().getElementById(genderHiddenFieldID);
 
-      animalsHiddenTextField.setValue({ value: checkBoxes.values.join() });
+    // This is ran every time a checkbox changes from "checked" to "not checked"
+    genderCheckBoxesField.on('value-change', function () {
+      // Get current "state" of checkboxes
+      const checkBoxes = genderCheckBoxesField.getValue();
+
+      console.log(checkBoxes);
+
+      const genderValues = checkBoxes.values.join().replace('Female', 'F').replace('Male', 'M');
+
+      // Set comma-separated value to Ethnicity hidden field
+      // -> "checkbox value 1,checkbox value 2, ..."
+      genderHiddenField.setValue({ value: genderValues });
     });
 
-    animalsHiddenTextField.setValue({ value: animalsCheckBoxField.getValue().values.join() });
+    // Set comma-separated value to Ethnicity hidden field
+    // -> "checkbox value 1,checkbox value 2, ..."
+    genderHiddenField.setValue({ value: genderCheckBoxesField.getValue().values.join() });
 
-    // Colors Related
-    const colorsControlID = 97387815;
-    const colorsHiddenControlID = 97387818;
-    const colorsCheckBoxField = loader.getEngine().getDocument().getElementById(colorsControlID);
-    const colorsHiddenTextField = loader.getEngine().getDocument().getElementById(colorsHiddenControlID);
+    // IDs of Issues fields
+    const issueCheckBoxFieldID = 97387815;
+    const issuesHiddenFieldID = 97387818;
 
-    colorsCheckBoxField.on('value-change', function () {
-      const checkBoxes = colorsCheckBoxField.getValue();
+    // Fields
+    const issuesCheckBoxField = loader.getEngine().getDocument().getElementById(issueCheckBoxFieldID);
+    const issuesHiddenField = loader.getEngine().getDocument().getElementById(issuesHiddenFieldID);
 
-      colorsHiddenTextField.setValue({ value: checkBoxes.values.join() });
+    // This is ran every time a checkbox changes from "checked" to "not checked"
+    issuesCheckBoxField.on('value-change', function () {
+      // Get current "state" of checkboxes
+      const checkBoxes = issuesCheckBoxField.getValue();
+
+      // Set comma-separated value to Ethnicity hidden field
+      // -> "checkbox value 1,checkbox value 2, ..."
+      issuesHiddenField.setValue({ value: checkBoxes.values.join() });
     });
 
-    colorsHiddenTextField.setValue({ value: colorsCheckBoxField.getValue().values.join() });
+    // Set comma-separated value to Ethnicity hidden field
+    // -> "checkbox value 1,checkbox value 2, ..."
+    issuesHiddenField.setValue({ value: issuesCheckBoxField.getValue().values.join() });
   });
 })();
