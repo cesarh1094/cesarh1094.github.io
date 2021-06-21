@@ -68,20 +68,39 @@
         return;
       }
 
+      const other = politicalOtherField.getValue().value;
+
+      // Don't fill hidden field with "null" value
+      if (!other) {
+        return;
+      }
+
       // As user types in field, fill hidden field
       politicalHiddenField.setValue({
-        value: 'Demographics > Political Party: ' + politicalOtherField.getValue().value,
+        value: 'Demographics > Political Party: ' + other,
       });
     });
 
+    //
     politicalDropDownField.on('value-change', function () {
       const dropdownValue = politicalDropDownField.getValue();
 
       if ('Other' === dropdownValue.value) {
+        const other = politicalOtherField.getValue().value;
+
+        if (!other) {
+          return;
+        }
+
+        // As user types in field, fill hidden field
+        politicalHiddenField.setValue({
+          value: 'Demographics > Political Party: ' + other,
+        });
+
         return;
       }
 
-      // Reset hidden field when value of dropdown is NO LONGER 'other'
+      // Reset hidden field when value of dropdown is NO LONGER 'Other'
       politicalHiddenField.setValue({ value: '' });
     });
 
