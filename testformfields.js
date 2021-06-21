@@ -72,6 +72,8 @@
 
       // Don't fill hidden field with "null" value
       if (!other) {
+        politicalHiddenField.setValue({ value: '' });
+
         return;
       }
 
