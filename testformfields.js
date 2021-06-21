@@ -55,11 +55,12 @@
     const politicalOtherFieldID = 97500115;
     const politicalHiddenID = 97387818;
 
+    // Political fields (as objects)
     const politicalDropDownField = loader.getEngine().getDocument().getElementById(politicalDropDownFieldID);
     const politicalOtherField = loader.getEngine().getDocument().getElementById(politicalOtherFieldID);
     const politicalHiddenField = loader.getEngine().getDocument().getElementById(politicalHiddenID);
 
-    // Other Political Affialiation field
+    // The following is triggered when the "Other Political Affiliation" text field changes
     politicalOtherField.on('value-change', function () {
       const dropdownValue = politicalDropDownField.getValue();
 
@@ -83,7 +84,7 @@
       });
     });
 
-    //
+    // The following is triggered when the "What is your political affiliation" dropdown field changes
     politicalDropDownField.on('value-change', function () {
       const dropdownValue = politicalDropDownField.getValue();
 
@@ -108,26 +109,63 @@
       politicalHiddenField.setValue({ value: '' });
     });
 
-    // IDs of Issues fields
-    const issueCheckBoxFieldID = 97387815;
-    const issuesHiddenFieldID = 97387818;
+    // Education Level field IDs
+    const educationLevelDropDownFieldID = 97500085;
+    const educationLevelOtherFieldID = 97500111;
+    const educationLevelHiddenFieldID = 97500113;
 
-    // Fields
-    const issuesCheckBoxField = loader.getEngine().getDocument().getElementById(issueCheckBoxFieldID);
-    const issuesHiddenField = loader.getEngine().getDocument().getElementById(issuesHiddenFieldID);
+    // Education Level fields (as objects)
+    const educationLevelDropDownField = loader.getEngine().getDocument().getElementById(educationLevelDropDownFieldID);
+    const educationLevelOtherField = loader.getEngine().getDocument().getElementById(educationLevelOtherFieldID);
+    const educationLevelHiddenField = loader.getEngine().getDocument().getElementById(educationLevelHiddenFieldID);
 
-    // This is ran every time a checkbox changes from "checked" to "not checked"
-    issuesCheckBoxField.on('value-change', function () {
-      // Get current "state" of checkboxes
-      const checkBoxes = issuesCheckBoxField.getValue();
+    // The following is triggered when the "Other Education" text field changes
+    educationLevelOtherField.on('value-change', function () {
+      const dropdownValue = educationLevelDropDownField.getValue();
 
-      // Set comma-separated value to Ethnicity hidden field
-      // -> "checkbox value 1,checkbox value 2, ..."
-      issuesHiddenField.setValue({ value: checkBoxes.values.join() });
+      // Hidden field should not be filled if dropdown if NOT 'other'
+      if ('Other' !== dropdownValue.value) {
+        return;
+      }
+
+      const other = educationLevelOtherField.getValue().value;
+
+      // Don't fill hidden field with "null" value
+      if (!other) {
+        educationLevelHiddenField.setValue({ value: '' });
+
+        return;
+      }
+
+      // As user types in field, fill hidden field
+      educationLevelHiddenField.setValue({
+        value: 'Demographics > Political Party: ' + other,
+      });
     });
 
-    // Set comma-separated value to Ethnicity hidden field
-    // -> "checkbox value 1,checkbox value 2, ..."
-    issuesHiddenField.setValue({ value: issuesCheckBoxField.getValue().values.join() });
+    // The following is triggered when the "Please choose your highest level of education" dropdown field changes
+    educationLevelDropDownField.on('value-change', function () {
+      const dropdownValue = educationLevelDropDownField.getValue();
+
+      if ('Other' === dropdownValue.value) {
+        const other = educationLevelOtherField.getValue().value;
+
+        if (!other) {
+          educationLevelHiddenField.setValue({ value: '' });
+
+          return;
+        }
+
+        // As user types in field, fill hidden field
+        educationLevelHiddenField.setValue({
+          value: 'Demographics > Political Party: ' + other,
+        });
+
+        return;
+      }
+
+      // Reset hidden field when value of dropdown is NO LONGER 'Other'
+      educationLevelHiddenField.setValue({ value: '' });
+    });
   });
 })();
