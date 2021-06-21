@@ -285,6 +285,5 @@
       // Reset hidden field when value of dropdown is NO LONGER 'Other'
       contactHiddenField.setValue({ value: '' });
     });
-  })
   });
 })();
