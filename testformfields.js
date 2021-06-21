@@ -37,7 +37,7 @@
       // Get current "state" of checkboxes
       const checkBoxes = genderCheckBoxesField.getValue();
 
-      console.log(checkBoxes);
+      console.log(genderCheckBoxesField, checkBoxes);
 
       const genderValues = checkBoxes.values.join().replace('Female', 'F').replace('Male', 'M');
 
