@@ -71,8 +71,9 @@
       politicalHiddenField.setValue({ value: politicalOtherField.getValue().value });
     });
 
-    //
     politicalDropDownField.on('value-change', function () {
+      const dropdownValue = politicalDropDownField.getValue();
+
       if ('Other' === dropdownValue.value) {
         return;
       }
