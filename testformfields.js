@@ -29,29 +29,73 @@
   function handleGenderFields() {
     // IDs of Gender fields
     const genderCheckBoxesFieldID = 97387782;
+    const genderOtherFieldID      = 97537509;
     const genderHiddenFieldID     = 97387801;
 
     // Fields
     const genderCheckBoxesField = loader.getEngine().getDocument().getElementById( genderCheckBoxesFieldID );
+    const genderOtherField      = loader.getEngine().getDocument().getElementById( genderOtherFieldID );
     const genderHiddenField     = loader.getEngine().getDocument().getElementById( genderHiddenFieldID );
 
-    // This is ran every time a checkbox changes from "checked" to "not checked"
+    //// This is ran every time a checkbox changes from "checked" to "not checked"
+    //genderCheckBoxesField.on( 'value-change', function () {
+    //  // Get current "state" of checkboxes
+    //  const checkBoxes = genderCheckBoxesField.getValue();
+    //
+    //  /**
+    //   * @type {string[]}
+    //   */
+    //  const values = checkBoxes.values;
+    //
+    //  if ( values.includes( 'Other' ) ) {
+    //  }
+    //
+    //  const genderValues = checkBoxes.values.join().replace( 'Female', 'F' ).replace( 'Male', 'M' );
+    //
+    //  // Set comma-separated value to Ethnicity hidden field
+    //  // -> "checkbox value 1,checkbox value 2, ..."
+    //  genderHiddenField.setValue( { value: genderValues } );
+    //} );
+
     genderCheckBoxesField.on( 'value-change', function () {
-      // Get current "state" of checkboxes
-      const checkBoxes = genderCheckBoxesField.getValue();
+      /**
+       * @type {string[]}
+       */
+      const checkBoxes = genderCheckBoxesField.getValue().values;
 
-      console.log( genderCheckBoxesField, checkBoxes );
+      if ( !checkBoxes.includes( 'Other' ) ) {
+        genderHiddenField.setValue( { value: '' } )
 
-      const genderValues = checkBoxes.values.join().replace( 'Female', 'F' ).replace( 'Male', 'M' );
+        return;
+      }
 
-      // Set comma-separated value to Ethnicity hidden field
-      // -> "checkbox value 1,checkbox value 2, ..."
-      genderHiddenField.setValue( { value: genderValues } );
+      /**
+       * @type {string}
+       */
+      const otherGender = genderOtherField.getValue().value;
+
+      genderHiddenField.setValue( { value: otherGender ? ('Demographics > Gender Identity: ' + otherGender) : '' } )
     } );
 
-    // Set comma-separated value to Ethnicity hidden field
-    // -> "checkbox value 1,checkbox value 2, ..."
-    genderHiddenField.setValue( { value: genderCheckBoxesField.getValue().values.join() } );
+    genderOtherField.on( 'value-change', function () {
+      /**
+       * @type {string[]}
+       */
+      const checkBoxes = genderCheckBoxesField.getValue().values;
+
+      if ( !checkBoxes.includes( 'Other' ) ) {
+        genderHiddenField.setValue( { value: '' } )
+
+        return;
+      }
+
+      /**
+       * @type {string}
+       */
+      const otherGender = genderOtherField.getValue().value;
+
+      genderHiddenField.setValue( { value: otherGender ? ('Demographics > Gender Identity: ' + otherGender) : '' } )
+    } )
   }
 
   function handlePoliticalFields() {
