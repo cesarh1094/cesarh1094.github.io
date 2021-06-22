@@ -237,6 +237,56 @@
     } );
   }
 
+  function handleBecomeMemberFields() {
+    const becomeAMemberCheckBoxFieldID = 97500126;
+    const becomeAMemberOtherFieldID    = 97537661;
+    const becomeAMemberHiddenFieldID   = 97500129;
+
+    const becomeAMemberCheckBoxField = loader.getEngine().getDocument().getElementById( becomeAMemberCheckBoxFieldID );
+    const becomeAMemberOtherField    = loader.getEngine().getDocument().getElementById( becomeAMemberOtherFieldID );
+    const becomeAMemberHiddenField   = loader.getEngine().getDocument().getElementById( becomeAMemberHiddenFieldID );
+
+    becomeAMemberCheckBoxField.on( 'value-change', function () {
+      /**
+       * @type {string[]}
+       */
+      const checkBoxes = becomeAMemberCheckBoxField.getValue().values;
+
+      if ( !checkBoxes.includes( 'Other' ) ) {
+        becomeAMemberCheckBoxField.setValue( { value: '' } )
+
+        return;
+      }
+
+      /**
+       * @type {string}
+       */
+      const otherBecomeAMember = becomeAMemberOtherFieldID.getValue().value;
+
+      becomeAMemberHiddenField.setValue( { value: otherBecomeAMember ? ('AA Other Help: ' + otherBecomeAMember) : '' } )
+    } );
+
+    becomeAMemberOtherField.on( 'value-change', function () {
+      /**
+       * @type {string[]}
+       */
+      const checkBoxes = becomeAMemberCheckBoxField.getValue().values;
+
+      if ( !checkBoxes.includes( 'Other' ) ) {
+        becomeAMemberHiddenField.setValue( { value: '' } )
+
+        return;
+      }
+
+      /**
+       * @type {string}
+       */
+      const otherBecomeAMember = becomeAMemberOtherField.getValue().value;
+
+      becomeAMemberHiddenField.setValue( { value: otherBecomeAMember ? ('AA Other Help: ' + otherBecomeAMember) : '' } )
+    } )
+  }
+
   function handleIssuesFields() {
     // Issues fields IDs
     const issuesCheckBoxID    = 97500207;
@@ -265,11 +315,7 @@
        */
       const otherIssues = issuesOtherField.getValue().value;
 
-      if ( !otherIssues ) {
-        return;
-      }
-
-      issuesHiddenField.setValue( { value: otherIssues ? otherIssues : 'Issues > ' } )
+      issuesHiddenField.setValue( { value: otherIssues ? ('Issues > ' + otherIssues) : '' } )
     } );
 
     issuesOtherField.on( 'value-change', function () {
@@ -289,13 +335,7 @@
        */
       const otherIssues = issuesOtherField.getValue().value;
 
-      if ( !otherIssues ) {
-        issuesHiddenField.setValue( { value: '' } );
-
-        return;
-      }
-
-      issuesHiddenField.setValue( { value: otherIssues ? otherIssues : 'Issues > ' } )
+      issuesHiddenField.setValue( { value: otherIssues ? ('Issues > ' + otherIssues) : '' } )
     } )
   }
 
@@ -366,6 +406,7 @@
       handleGenderFields();
       handlePoliticalFields();
       handleEducationLevelFields();
+      handleBecomeMemberFields();
       handleCoachingFields();
       handleIssuesFields();
       handleContactFields();
