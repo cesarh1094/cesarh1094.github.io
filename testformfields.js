@@ -1,339 +1,374 @@
 (function () {
-  window.addEventListener('load', function () {
+  window.addEventListener( 'load', function () {
+    init();
+
     // Ethnicity fields
+    function handleEthnicityFields() {
+      // IDs of Ethnicity fields
+      const ethnicityCheckBoxesFieldID = 97270574;
+      const ethnicityHiddenFieldID     = 97270677;
 
-    // IDs of Ethnicity fields
-    const ethnicityCheckBoxesFieldID = 97270574;
-    const ethnicityHiddenFieldID = 97270677;
+      // Fields
+      const ethnicityCheckBoxField = loader.getEngine().getDocument().getElementById( ethnicityCheckBoxesFieldID );
+      const ethnicityHiddenField   = loader.getEngine().getDocument().getElementById( ethnicityHiddenFieldID );
 
-    // Fields
-    const ethnicityCheckBoxField = loader.getEngine().getDocument().getElementById(ethnicityCheckBoxesFieldID);
-    const ethnicityHiddenField = loader.getEngine().getDocument().getElementById(ethnicityHiddenFieldID);
+      // This is ran every time a checkbox changes from "checked" to "not checked"
+      ethnicityCheckBoxField.on( 'value-change', function () {
+        // Get current "state" of checkboxes
+        const checkBoxes = ethnicityCheckBoxField.getValue();
 
-    // This is ran every time a checkbox changes from "checked" to "not checked"
-    ethnicityCheckBoxField.on('value-change', function () {
-      // Get current "state" of checkboxes
-      const checkBoxes = ethnicityCheckBoxField.getValue();
-
-      // Set comma-separated value to Ethnicity hidden field
-      // -> "checkbox value 1,checkbox value 2, ..."
-      ethnicityHiddenField.setValue({ value: checkBoxes.values.join() });
-    });
-
-    // Set comma-separated value to Ethnicity hidden field
-    // -> "checkbox value 1,checkbox value 2, ..."
-    ethnicityHiddenField.setValue({ value: ethnicityCheckBoxField.getValue().values.join() });
-
-    // IDs of Gender fields
-    const genderCheckBoxesFieldID = 97387782;
-    const genderHiddenFieldID = 97387801;
-
-    // Fields
-    const genderCheckBoxesField = loader.getEngine().getDocument().getElementById(genderCheckBoxesFieldID);
-    const genderHiddenField = loader.getEngine().getDocument().getElementById(genderHiddenFieldID);
-
-    // This is ran every time a checkbox changes from "checked" to "not checked"
-    genderCheckBoxesField.on('value-change', function () {
-      // Get current "state" of checkboxes
-      const checkBoxes = genderCheckBoxesField.getValue();
-
-      console.log(genderCheckBoxesField, checkBoxes);
-
-      const genderValues = checkBoxes.values.join().replace('Female', 'F').replace('Male', 'M');
+        // Set comma-separated value to Ethnicity hidden field
+        // -> "checkbox value 1,checkbox value 2, ..."
+        ethnicityHiddenField.setValue( { value: checkBoxes.values.join() } );
+      } );
 
       // Set comma-separated value to Ethnicity hidden field
       // -> "checkbox value 1,checkbox value 2, ..."
-      genderHiddenField.setValue({ value: genderValues });
-    });
+      ethnicityHiddenField.setValue( { value: ethnicityCheckBoxField.getValue().values.join() } );
+    }
 
-    // Set comma-separated value to Ethnicity hidden field
-    // -> "checkbox value 1,checkbox value 2, ..."
-    genderHiddenField.setValue({ value: genderCheckBoxesField.getValue().values.join() });
+    function handleGenderFields() {
+      // IDs of Gender fields
+      const genderCheckBoxesFieldID = 97387782;
+      const genderHiddenFieldID     = 97387801;
 
-    // Political field IDs
-    const politicalDropDownFieldID = 97497873;
-    const politicalOtherFieldID = 97500115;
-    const politicalHiddenID = 97387818;
+      // Fields
+      const genderCheckBoxesField = loader.getEngine().getDocument().getElementById( genderCheckBoxesFieldID );
+      const genderHiddenField     = loader.getEngine().getDocument().getElementById( genderHiddenFieldID );
 
-    // Political fields (as objects)
-    const politicalDropDownField = loader.getEngine().getDocument().getElementById(politicalDropDownFieldID);
-    const politicalOtherField = loader.getEngine().getDocument().getElementById(politicalOtherFieldID);
-    const politicalHiddenField = loader.getEngine().getDocument().getElementById(politicalHiddenID);
+      // This is ran every time a checkbox changes from "checked" to "not checked"
+      genderCheckBoxesField.on( 'value-change', function () {
+        // Get current "state" of checkboxes
+        const checkBoxes = genderCheckBoxesField.getValue();
 
-    // The following is triggered when the "Other Political Affiliation" text field changes
-    politicalOtherField.on('value-change', function () {
-      const dropdownValue = politicalDropDownField.getValue();
+        console.log( genderCheckBoxesField, checkBoxes );
 
-      // Hidden field should not be filled if dropdown if NOT 'other'
-      if ('Other' !== dropdownValue.value) {
-        return;
-      }
+        const genderValues = checkBoxes.values.join().replace( 'Female', 'F' ).replace( 'Male', 'M' );
 
-      const other = politicalOtherField.getValue().value;
+        // Set comma-separated value to Ethnicity hidden field
+        // -> "checkbox value 1,checkbox value 2, ..."
+        genderHiddenField.setValue( { value: genderValues } );
+      } );
 
-      // Don't fill hidden field with "null" value
-      if (!other) {
-        politicalHiddenField.setValue({ value: '' });
+      // Set comma-separated value to Ethnicity hidden field
+      // -> "checkbox value 1,checkbox value 2, ..."
+      genderHiddenField.setValue( { value: genderCheckBoxesField.getValue().values.join() } );
+    }
 
-        return;
-      }
+    function handlePoliticalFields() {
+      // Political field IDs
+      const politicalDropDownFieldID = 97497873;
+      const politicalOtherFieldID    = 97500115;
+      const politicalHiddenID        = 97387818;
 
-      // As user types in field, fill hidden field
-      politicalHiddenField.setValue({
-        value: 'Demographics > Political Party: ' + other,
-      });
-    });
+      // Political fields (as objects)
+      const politicalDropDownField = loader.getEngine().getDocument().getElementById( politicalDropDownFieldID );
+      const politicalOtherField    = loader.getEngine().getDocument().getElementById( politicalOtherFieldID );
+      const politicalHiddenField   = loader.getEngine().getDocument().getElementById( politicalHiddenID );
 
-    // The following is triggered when the "What is your political affiliation" dropdown field changes
-    politicalDropDownField.on('value-change', function () {
-      const dropdownValue = politicalDropDownField.getValue();
+      // The following is triggered when the "Other Political Affiliation" text field changes
+      politicalOtherField.on( 'value-change', function () {
+        const dropdownValue = politicalDropDownField.getValue();
 
-      if ('Other' === dropdownValue.value) {
+        // Hidden field should not be filled if dropdown if NOT 'other'
+        if ( 'Other' !== dropdownValue.value ) {
+          return;
+        }
+
         const other = politicalOtherField.getValue().value;
 
-        if (!other) {
-          politicalHiddenField.setValue({ value: '' });
+        // Don't fill hidden field with "null" value
+        if ( !other ) {
+          politicalHiddenField.setValue( { value: '' } );
 
           return;
         }
 
         // As user types in field, fill hidden field
-        politicalHiddenField.setValue({
+        politicalHiddenField.setValue( {
           value: 'Demographics > Political Party: ' + other,
-        });
+        } );
+      } );
 
-        return;
-      }
+      // The following is triggered when the "What is your political affiliation" dropdown field changes
+      politicalDropDownField.on( 'value-change', function () {
+        const dropdownValue = politicalDropDownField.getValue();
 
-      // Reset hidden field when value of dropdown is NO LONGER 'Other'
-      politicalHiddenField.setValue({ value: '' });
-    });
+        if ( 'Other' === dropdownValue.value ) {
+          const other = politicalOtherField.getValue().value;
 
-    // Education Level field IDs
-    const educationLevelDropDownFieldID = 97500085;
-    const educationLevelOtherFieldID = 97500111;
-    const educationLevelHiddenFieldID = 97500113;
+          if ( !other ) {
+            politicalHiddenField.setValue( { value: '' } );
 
-    // Education Level fields (as objects)
-    const educationLevelDropDownField = loader.getEngine().getDocument().getElementById(educationLevelDropDownFieldID);
-    const educationLevelOtherField = loader.getEngine().getDocument().getElementById(educationLevelOtherFieldID);
-    const educationLevelHiddenField = loader.getEngine().getDocument().getElementById(educationLevelHiddenFieldID);
+            return;
+          }
 
-    // The following is triggered when the "Other Education" text field changes
-    educationLevelOtherField.on('value-change', function () {
-      const dropdownValue = educationLevelDropDownField.getValue();
+          // As user types in field, fill hidden field
+          politicalHiddenField.setValue( {
+            value: 'Demographics > Political Party: ' + other,
+          } );
 
-      // Hidden field should not be filled if dropdown if NOT 'other'
-      if ('Other' !== dropdownValue.value) {
-        return;
-      }
+          return;
+        }
 
-      const other = educationLevelOtherField.getValue().value;
+        // Reset hidden field when value of dropdown is NO LONGER 'Other'
+        politicalHiddenField.setValue( { value: '' } );
+      } );
+    }
 
-      // Don't fill hidden field with "null" value
-      if (!other) {
-        educationLevelHiddenField.setValue({ value: '' });
+    function handleEducationLevelFields() {
+      // Education Level field IDs
+      const educationLevelDropDownFieldID = 97500085;
+      const educationLevelOtherFieldID    = 97500111;
+      const educationLevelHiddenFieldID   = 97500113;
 
-        return;
-      }
+      // Education Level fields (as objects)
+      const educationLevelDropDownField = loader.getEngine().getDocument().getElementById( educationLevelDropDownFieldID );
+      const educationLevelOtherField    = loader.getEngine().getDocument().getElementById( educationLevelOtherFieldID );
+      const educationLevelHiddenField   = loader.getEngine().getDocument().getElementById( educationLevelHiddenFieldID );
 
-      // As user types in field, fill hidden field
-      educationLevelHiddenField.setValue({
-        value: 'Demographics > Education: ' + other,
-      });
-    });
+      // The following is triggered when the "Other Education" text field changes
+      educationLevelOtherField.on( 'value-change', function () {
+        const dropdownValue = educationLevelDropDownField.getValue();
 
-    // The following is triggered when the "Please choose your highest level of education" dropdown field changes
-    educationLevelDropDownField.on('value-change', function () {
-      const dropdownValue = educationLevelDropDownField.getValue();
+        // Hidden field should not be filled if dropdown if NOT 'other'
+        if ( 'Other' !== dropdownValue.value ) {
+          return;
+        }
 
-      if ('Other' === dropdownValue.value) {
         const other = educationLevelOtherField.getValue().value;
 
-        if (!other) {
-          educationLevelHiddenField.setValue({ value: '' });
+        // Don't fill hidden field with "null" value
+        if ( !other ) {
+          educationLevelHiddenField.setValue( { value: '' } );
 
           return;
         }
 
         // As user types in field, fill hidden field
-        educationLevelHiddenField.setValue({
+        educationLevelHiddenField.setValue( {
           value: 'Demographics > Education: ' + other,
-        });
+        } );
+      } );
 
-        return;
-      }
+      // The following is triggered when the "Please choose your highest level of education" dropdown field changes
+      educationLevelDropDownField.on( 'value-change', function () {
+        const dropdownValue = educationLevelDropDownField.getValue();
 
-      // Reset hidden field when value of dropdown is NO LONGER 'Other'
-      educationLevelHiddenField.setValue({ value: '' });
-    });
+        if ( 'Other' === dropdownValue.value ) {
+          const other = educationLevelOtherField.getValue().value;
 
-    // Education Level field IDs
-    const coachingDropDownFieldID = 97500189;
-    const coachingOtherFieldID = 97500201;
-    const coachingHiddenFieldID = 97500204;
+          if ( !other ) {
+            educationLevelHiddenField.setValue( { value: '' } );
 
-    // Education Level fields (as objects)
-    const coachingDropDownField = loader.getEngine().getDocument().getElementById(coachingDropDownFieldID);
-    const coachingOtherField = loader.getEngine().getDocument().getElementById(coachingOtherFieldID);
-    const coachingHiddenField = loader.getEngine().getDocument().getElementById(coachingHiddenFieldID);
+            return;
+          }
 
-    // The following is triggered when the "Other Education" text field changes
-    coachingOtherField.on('value-change', function () {
-      const dropdownValue = coachingDropDownField.getValue();
+          // As user types in field, fill hidden field
+          educationLevelHiddenField.setValue( {
+            value: 'Demographics > Education: ' + other,
+          } );
 
-      // Hidden field should not be filled if dropdown if NOT 'other'
-      if ('Other' !== dropdownValue.value) {
-        return;
-      }
+          return;
+        }
 
-      const other = coachingOtherField.getValue().value;
+        // Reset hidden field when value of dropdown is NO LONGER 'Other'
+        educationLevelHiddenField.setValue( { value: '' } );
+      } );
+    }
 
-      // Don't fill hidden field with "null" value
-      if (!other) {
-        coachingHiddenField.setValue({ value: '' });
+    function handleCoachingFields() {
+      // Education Level field IDs
+      const coachingDropDownFieldID = 97500189;
+      const coachingOtherFieldID    = 97500201;
+      const coachingHiddenFieldID   = 97500204;
 
-        return;
-      }
+      // Education Level fields (as objects)
+      const coachingDropDownField = loader.getEngine().getDocument().getElementById( coachingDropDownFieldID );
+      const coachingOtherField    = loader.getEngine().getDocument().getElementById( coachingOtherFieldID );
+      const coachingHiddenField   = loader.getEngine().getDocument().getElementById( coachingHiddenFieldID );
 
-      // As user types in field, fill hidden field
-      coachingHiddenField.setValue({
-        value: 'Coaching lead: ' + other,
-      });
-    });
+      // The following is triggered when the "Other Education" text field changes
+      coachingOtherField.on( 'value-change', function () {
+        const dropdownValue = coachingDropDownField.getValue();
 
-    // The following is triggered when the "Please choose your highest level of education" dropdown field changes
-    coachingDropDownField.on('value-change', function () {
-      const dropdownValue = coachingDropDownField.getValue();
+        // Hidden field should not be filled if dropdown if NOT 'other'
+        if ( 'Other' !== dropdownValue.value ) {
+          return;
+        }
 
-      if ('Other' === dropdownValue.value) {
         const other = coachingOtherField.getValue().value;
 
-        if (!other) {
-          coachingHiddenField.setValue({ value: '' });
+        // Don't fill hidden field with "null" value
+        if ( !other ) {
+          coachingHiddenField.setValue( { value: '' } );
 
           return;
         }
 
         // As user types in field, fill hidden field
-        coachingHiddenField.setValue({
+        coachingHiddenField.setValue( {
           value: 'Coaching lead: ' + other,
-        });
+        } );
+      } );
 
-        return;
-      }
+      // The following is triggered when the "Please choose your highest level of education" dropdown field changes
+      coachingDropDownField.on( 'value-change', function () {
+        const dropdownValue = coachingDropDownField.getValue();
 
-      // Reset hidden field when value of dropdown is NO LONGER 'Other'
-      coachingHiddenField.setValue({ value: '' });
-    });
+        if ( 'Other' === dropdownValue.value ) {
+          const other = coachingOtherField.getValue().value;
 
-    // Issues fields IDs
-    const issuesCheckBoxID    = 97500207;
-    const issuesOtherFieldID  = 97537712;
-    const issuesHiddenFieldID = 97500243;
+          if ( !other ) {
+            coachingHiddenField.setValue( { value: '' } );
 
-    // Issues fields
-    const issuesCheckBoxField = loader.getEngine().getDocument().getElementById( issuesCheckBoxID );
-    const issuesOtherField    = loader.getEngine().getDocument().getElementById( issuesOtherFieldID );
-    const issuesHiddenField   = loader.getEngine().getDocument().getElementById( issuesHiddenFieldID );
+            return;
+          }
 
-    issuesCheckBoxField.on( 'value-change', function () {
-      /**
-       * @type {string[]}
-       */
-      const checkBoxes = issuesCheckBoxField.getValue().values;
+          // As user types in field, fill hidden field
+          coachingHiddenField.setValue( {
+            value: 'Coaching lead: ' + other,
+          } );
 
-      if ( !checkBoxes.includes( 'Other' ) ) {
-        issuesHiddenField.setValue( { value: '' } )
+          return;
+        }
 
-        return;
-      }
+        // Reset hidden field when value of dropdown is NO LONGER 'Other'
+        coachingHiddenField.setValue( { value: '' } );
+      } );
+    }
 
-      /**
-       * @type {string}
-       */
-      const otherIssues = issuesOtherField.getValue().value;
+    function handleIssuesFields() {
+      // Issues fields IDs
+      const issuesCheckBoxID    = 97500207;
+      const issuesOtherFieldID  = 97537712;
+      const issuesHiddenFieldID = 97500243;
 
-      issuesHiddenField.setValue( { value: otherIssues ? otherIssues : '' } )
-    } );
+      // Issues fields (as objects)
+      const issuesCheckBoxField = loader.getEngine().getDocument().getElementById( issuesCheckBoxID );
+      const issuesOtherField    = loader.getEngine().getDocument().getElementById( issuesOtherFieldID );
+      const issuesHiddenField   = loader.getEngine().getDocument().getElementById( issuesHiddenFieldID );
 
-    issuesOtherField.on( 'value-change', function () {
-      /**
-       * @type {string[]}
-       */
-      const checkBoxes = issuesCheckBoxField.getValue().values;
+      issuesCheckBoxField.on( 'value-change', function () {
+        /**
+         * @type {string[]}
+         */
+        const checkBoxes = issuesCheckBoxField.getValue().values;
 
-      if ( !checkBoxes.includes( 'Other' ) ) {
-        issuesHiddenField.setValue( { value: '' } )
+        if ( !checkBoxes.includes( 'Other' ) ) {
+          issuesHiddenField.setValue( { value: '' } )
 
-        return;
-      }
+          return;
+        }
 
-      /**
-       * @type {string}
-       */
-      const otherIssues = issuesOtherField.getValue().value;
+        /**
+         * @type {string}
+         */
+        const otherIssues = issuesOtherField.getValue().value;
 
-      issuesHiddenField.setValue( { value: otherIssues ? otherIssues : '' } )
-    } )
+        if ( !otherIssues ) {
+          return;
+        }
 
-    // Education Level field IDs
-    const contactDropDownFieldID = 97500250;
-    const contactOtherFieldID = 97500253;
-    const contactHiddenFieldID = 97500331;
+        issuesHiddenField.setValue( { value: otherIssues ? otherIssues : 'Issues > ' } )
+      } );
 
-    // Education Level fields (as objects)
-    const contactDropDownField = loader.getEngine().getDocument().getElementById(contactDropDownFieldID);
-    const contactOtherField = loader.getEngine().getDocument().getElementById(contactOtherFieldID);
-    const contactHiddenField = loader.getEngine().getDocument().getElementById(contactHiddenFieldID);
+      issuesOtherField.on( 'value-change', function () {
+        /**
+         * @type {string[]}
+         */
+        const checkBoxes = issuesCheckBoxField.getValue().values;
 
-    // The following is triggered when the "Other Education" text field changes
-    contactOtherField.on('value-change', function () {
-      const dropdownValue = contactDropDownField.getValue();
+        if ( !checkBoxes.includes( 'Other' ) ) {
+          issuesHiddenField.setValue( { value: '' } )
 
-      // Hidden field should not be filled if dropdown if NOT 'other'
-      if ('Other' !== dropdownValue.value) {
-        return;
-      }
+          return;
+        }
 
-      const other = contactOtherField.getValue().value;
+        /**
+         * @type {string}
+         */
+        const otherIssues = issuesOtherField.getValue().value;
 
-      // Don't fill hidden field with "null" value
-      if (!other) {
-        contactHiddenField.setValue({ value: '' });
+        if ( !otherIssues ) {
+          issuesHiddenField.setValue( { value: '' } );
 
-        return;
-      }
+          return;
+        }
 
-      // As user types in field, fill hidden field
-      contactHiddenField.setValue({
-        value: 'Contact mode: ' + other,
-      });
-    });
+        issuesHiddenField.setValue( { value: otherIssues ? otherIssues : 'Issues > ' } )
+      } )
+    }
 
-    // The following is triggered when the "Please choose your highest level of education" dropdown field changes
-    contactDropDownField.on('value-change', function () {
-      const dropdownValue = contactDropDownField.getValue();
+    function handleContactFields() {
+      // Contact field IDs
+      const contactDropDownFieldID = 97500250;
+      const contactOtherFieldID    = 97500253;
+      const contactHiddenFieldID   = 97500331;
 
-      if ('Other' === dropdownValue.value) {
+      // Contact fields (as objects)
+      const contactDropDownField = loader.getEngine().getDocument().getElementById( contactDropDownFieldID );
+      const contactOtherField    = loader.getEngine().getDocument().getElementById( contactOtherFieldID );
+      const contactHiddenField   = loader.getEngine().getDocument().getElementById( contactHiddenFieldID );
+
+      // The following is triggered when the "Other Point of Contact" text field changes
+      contactOtherField.on( 'value-change', function () {
+        const dropdownValue = contactDropDownField.getValue();
+
+        // Hidden field should not be filled if dropdown if NOT 'other'
+        if ( 'Other' !== dropdownValue.value ) {
+          return;
+        }
+
         const other = contactOtherField.getValue().value;
 
-        if (!other) {
-          contactHiddenField.setValue({ value: '' });
+        // Don't fill hidden field with "null" value
+        if ( !other ) {
+          contactHiddenField.setValue( { value: '' } );
 
           return;
         }
 
         // As user types in field, fill hidden field
-        contactHiddenField.setValue({
-          value: 'Contact mode:' + other,
-        });
+        contactHiddenField.setValue( {
+          value: 'Contact mode: ' + other,
+        } );
+      } );
 
-        return;
-      }
+      // The following is triggered when the "How fo you want Vote Run lead..." dropdown field changes
+      contactDropDownField.on( 'value-change', function () {
+        const dropdownValue = contactDropDownField.getValue();
 
-      // Reset hidden field when value of dropdown is NO LONGER 'Other'
-      contactHiddenField.setValue({ value: '' });
-    });
-  });
+        if ( 'Other' === dropdownValue.value ) {
+          const other = contactOtherField.getValue().value;
+
+          if ( !other ) {
+            contactHiddenField.setValue( { value: '' } );
+
+            return;
+          }
+
+          // As user types in field, fill hidden field
+          contactHiddenField.setValue( {
+            value: 'Contact mode:' + other,
+          } );
+
+          return;
+        }
+
+        // Reset hidden field when value of dropdown is NO LONGER 'Other'
+        contactHiddenField.setValue( { value: '' } );
+      } );
+    }
+
+    function init() {
+      handleEthnicityFields();
+      handleGenderFields();
+      handlePoliticalFields();
+      handleEducationLevelFields();
+      handleCoachingFields();
+      handleIssuesFields();
+      handleContactFields();
+    }
+  } );
 })();
