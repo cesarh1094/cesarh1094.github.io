@@ -241,7 +241,7 @@
       /**
        * @type {string[]}
        */
-      const checkBoxes = issuesCheckBoxField.getValue().value;
+      const checkBoxes = issuesCheckBoxField.getValue().values;
 
       if ( !checkBoxes.includes( 'Other' ) ) {
         issuesHiddenField.setValue( { value: '' } )
@@ -261,7 +261,7 @@
       /**
        * @type {string[]}
        */
-      const checkBoxes = issuesCheckBoxField.getValue().value;
+      const checkBoxes = issuesCheckBoxField.getValue().values;
 
       if ( !checkBoxes.includes( 'Other' ) ) {
         issuesHiddenField.setValue( { value: '' } )
