@@ -227,6 +227,56 @@
       coachingHiddenField.setValue({ value: '' });
     });
 
+    // Issues fields IDs
+    const issuesCheckBoxID    = 97500207;
+    const issuesOtherFieldID  = 97537712;
+    const issuesHiddenFieldID = 97500243;
+
+    // Issues fields
+    const issuesCheckBoxField = loader.getEngine().getDocument().getElementById( issuesCheckBoxID );
+    const issuesOtherField    = loader.getEngine().getDocument().getElementById( issuesOtherFieldID );
+    const issuesHiddenField   = loader.getEngine().getDocument().getElementById( issuesHiddenFieldID );
+
+    issuesCheckBoxField.on( 'value-change', function () {
+      /**
+       * @type {string[]}
+       */
+      const checkBoxes = issuesCheckBoxField.getValue().value;
+
+      if ( !checkBoxes.includes( 'Other' ) ) {
+        issuesHiddenField.setValue( { value: '' } )
+
+        return;
+      }
+
+      /**
+       * @type {string}
+       */
+      const otherIssues = issuesOtherField.getValue().value;
+
+      issuesHiddenField.setValue( { value: otherIssues ? otherIssues : '' } )
+    } );
+
+    issuesOtherField.on( 'value-change', function () {
+      /**
+       * @type {string[]}
+       */
+      const checkBoxes = issuesCheckBoxField.getValue().value;
+
+      if ( !checkBoxes.includes( 'Other' ) ) {
+        issuesHiddenField.setValue( { value: '' } )
+
+        return;
+      }
+
+      /**
+       * @type {string}
+       */
+      const otherIssues = issuesOtherField.getValue().value;
+
+      issuesHiddenField.setValue( { value: otherIssues ? otherIssues : '' } )
+    } )
+
     // Education Level field IDs
     const contactDropDownFieldID = 97500250;
     const contactOtherFieldID = 97500253;
