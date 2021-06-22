@@ -253,7 +253,7 @@
       const checkBoxes = becomeAMemberCheckBoxField.getValue().values;
 
       if ( !checkBoxes.includes( 'Other' ) ) {
-        becomeAMemberCheckBoxField.setValue( { value: '' } )
+        becomeAMemberHiddenField.setValue( { value: '' } )
 
         return;
       }
