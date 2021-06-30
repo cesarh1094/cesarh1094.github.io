@@ -129,7 +129,7 @@
 
       // As user types in field, fill hidden field
       politicalHiddenField.setValue( {
-        value: 'Demographics > Political Party: ' + other.replace( ',', '' ),
+        value: 'Demographics > Political Party: ' + other.replace( ',', '/' ),
       } );
     } );
 
@@ -148,7 +148,7 @@
 
         // As user types in field, fill hidden field
         politicalHiddenField.setValue( {
-          value: 'Demographics > Political Party: ' + other.replace( ',', '' ),
+          value: 'Demographics > Political Party: ' + other.replace( ',', '/' ),
         } );
 
         return;
@@ -190,7 +190,7 @@
 
       // As user types in field, fill hidden field
       educationLevelHiddenField.setValue( {
-        value: 'Demographics > Education: ' + other.replace( ',', '' ),
+        value: 'Demographics > Education: ' + other.replace( ',', '/' ),
       } );
     } );
 
@@ -209,7 +209,7 @@
 
         // As user types in field, fill hidden field
         educationLevelHiddenField.setValue( {
-          value: 'Demographics > Education: ' + other.replace( ',', '' ),
+          value: 'Demographics > Education: ' + other.replace( ',', '/' ),
         } );
 
         return;
@@ -251,7 +251,7 @@
 
       // As user types in field, fill hidden field
       coachingHiddenField.setValue( {
-        value: 'Coaching lead: ' + other.replace( ',', '' ),
+        value: 'Coaching lead: ' + other.replace( ',', '/' ),
       } );
     } );
 
@@ -270,7 +270,7 @@
 
         // As user types in field, fill hidden field
         coachingHiddenField.setValue( {
-          value: 'Coaching lead: ' + other.replace( ',', '' ),
+          value: 'Coaching lead: ' + other.replace( ',', '/' ),
         } );
 
         return;
@@ -307,7 +307,7 @@
        */
       const otherBecomeAMember = becomeAMemberOtherFieldID.getValue().value;
 
-      becomeAMemberHiddenField.setValue( { value: otherBecomeAMember ? ('AA Other Help: ' + otherBecomeAMember.replace( ',', '' )) : '' } )
+      becomeAMemberHiddenField.setValue( { value: otherBecomeAMember ? ('AA Other Help: ' + otherBecomeAMember.replace( ',', '/' )) : '' } )
     } );
 
     becomeAMemberOtherField.on( 'value-change', function () {
@@ -327,7 +327,7 @@
        */
       const otherBecomeAMember = becomeAMemberOtherField.getValue().value;
 
-      becomeAMemberHiddenField.setValue( { value: otherBecomeAMember ? ('AA Other Help: ' + otherBecomeAMember.replace( ',', '' )) : '' } )
+      becomeAMemberHiddenField.setValue( { value: otherBecomeAMember ? ('AA Other Help: ' + otherBecomeAMember.replace( ',', '/' )) : '' } )
     } )
   }
 
@@ -359,7 +359,7 @@
        */
       const otherIssues = issuesOtherField.getValue().value;
 
-      issuesHiddenField.setValue( { value: otherIssues ? ('Issues > ' + otherIssues.replace( ',', '' )) : '' } )
+      issuesHiddenField.setValue( { value: otherIssues ? ('Issues > ' + otherIssues.replace( ',', '/' )) : '' } )
     } );
 
     issuesOtherField.on( 'value-change', function () {
@@ -379,7 +379,7 @@
        */
       const otherIssues = issuesOtherField.getValue().value;
 
-      issuesHiddenField.setValue( { value: otherIssues ? ('Issues > ' + otherIssues.replace( ',', '' )) : '' } )
+      issuesHiddenField.setValue( { value: otherIssues ? ('Issues > ' + otherIssues.replace( ',', '/' )) : '' } )
     } )
   }
 
@@ -414,7 +414,7 @@
 
       // As user types in field, fill hidden field
       contactHiddenField.setValue( {
-        value: 'Contact mode: ' + other.replace( ',', '' ),
+        value: 'Contact mode: ' + other.replace( ',', '/' ),
       } );
     } );
 
@@ -433,7 +433,7 @@
 
         // As user types in field, fill hidden field
         contactHiddenField.setValue( {
-          value: 'Contact mode:' + other.replace( ',', '' ),
+          value: 'Contact mode:' + other.replace( ',', '/' ),
         } );
 
         return;
