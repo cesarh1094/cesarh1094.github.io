@@ -190,7 +190,7 @@
 
       // As user types in field, fill hidden field
       educationLevelHiddenField.setValue( {
-        value: 'Demographics > Education: ' + other.replace( ',', '/' ),
+        value: 'Demographics > Education: ' + other.replace( ',', ' ' ),
       } );
     } );
 
