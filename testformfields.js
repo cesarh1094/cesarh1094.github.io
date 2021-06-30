@@ -50,7 +50,7 @@
     //  if ( values.includes( 'Other' ) ) {
     //  }
     //
-    //  const genderValues = checkBoxes.values.join().replace( 'Female', 'F' ).replace( 'Male', 'M' );
+    //  const genderValues = checkBoxes.values.join().replaceAll( 'Female', 'F' ).replaceAll( 'Male', 'M' );
     //
     //  // Set comma-separated value to Ethnicity hidden field
     //  // -> "checkbox value 1,checkbox value 2, ..."
@@ -74,7 +74,7 @@
        */
       const otherGender = genderOtherField.getValue().value;
 
-      genderHiddenField.setValue( { value: otherGender ? ('Demographics > Gender Identity: ' + otherGender.replace( ',', '/' )) : '' } )
+      genderHiddenField.setValue( { value: otherGender ? ('Demographics > Gender Identity: ' + otherGender.replaceAll( ',', '/' )) : '' } )
     } );
 
     genderOtherField.on( 'value-change', function () {
@@ -94,7 +94,7 @@
        */
       const otherGender = genderOtherField.getValue().value;
 
-      genderHiddenField.setValue( { value: otherGender ? ('Demographics > Gender Identity: ' + otherGender.replace( ',', '/' )) : '' } )
+      genderHiddenField.setValue( { value: otherGender ? ('Demographics > Gender Identity: ' + otherGender.replaceAll( ',', '/' )) : '' } )
     } )
   }
 
@@ -129,7 +129,7 @@
 
       // As user types in field, fill hidden field
       politicalHiddenField.setValue( {
-        value: 'Demographics > Political Party: ' + other.replace( ',', '/' ),
+        value: 'Demographics > Political Party: ' + other.replaceAll( ',', '/' ),
       } );
     } );
 
@@ -148,7 +148,7 @@
 
         // As user types in field, fill hidden field
         politicalHiddenField.setValue( {
-          value: 'Demographics > Political Party: ' + other.replace( ',', '/' ),
+          value: 'Demographics > Political Party: ' + other.replaceAll( ',', '/' ),
         } );
 
         return;
@@ -190,7 +190,7 @@
 
       // As user types in field, fill hidden field
       educationLevelHiddenField.setValue( {
-        value: 'Demographics > Education: ' + other.replace( ',', ' ' ),
+        value: 'Demographics > Education: ' + other.replaceAll( ',', ' ' ),
       } );
     } );
 
@@ -209,7 +209,7 @@
 
         // As user types in field, fill hidden field
         educationLevelHiddenField.setValue( {
-          value: 'Demographics > Education: ' + other.replace( ',', '/' ),
+          value: 'Demographics > Education: ' + other.replaceAll( ',', '/' ),
         } );
 
         return;
@@ -251,7 +251,7 @@
 
       // As user types in field, fill hidden field
       coachingHiddenField.setValue( {
-        value: 'Coaching lead: ' + other.replace( ',', '/' ),
+        value: 'Coaching lead: ' + other.replaceAll( ',', '/' ),
       } );
     } );
 
@@ -270,7 +270,7 @@
 
         // As user types in field, fill hidden field
         coachingHiddenField.setValue( {
-          value: 'Coaching lead: ' + other.replace( ',', '/' ),
+          value: 'Coaching lead: ' + other.replaceAll( ',', '/' ),
         } );
 
         return;
@@ -307,7 +307,7 @@
        */
       const otherBecomeAMember = becomeAMemberOtherFieldID.getValue().value;
 
-      becomeAMemberHiddenField.setValue( { value: otherBecomeAMember ? ('AA Other Help: ' + otherBecomeAMember.replace( ',', '/' )) : '' } )
+      becomeAMemberHiddenField.setValue( { value: otherBecomeAMember ? ('AA Other Help: ' + otherBecomeAMember.replaceAll( ',', '/' )) : '' } )
     } );
 
     becomeAMemberOtherField.on( 'value-change', function () {
@@ -327,7 +327,7 @@
        */
       const otherBecomeAMember = becomeAMemberOtherField.getValue().value;
 
-      becomeAMemberHiddenField.setValue( { value: otherBecomeAMember ? ('AA Other Help: ' + otherBecomeAMember.replace( ',', '/' )) : '' } )
+      becomeAMemberHiddenField.setValue( { value: otherBecomeAMember ? ('AA Other Help: ' + otherBecomeAMember.replaceAll( ',', '/' )) : '' } )
     } )
   }
 
@@ -359,7 +359,7 @@
        */
       const otherIssues = issuesOtherField.getValue().value;
 
-      issuesHiddenField.setValue( { value: otherIssues ? ('Issues > ' + otherIssues.replace( ',', '/' )) : '' } )
+      issuesHiddenField.setValue( { value: otherIssues ? ('Issues > ' + otherIssues.replaceAll( ',', '/' )) : '' } )
     } );
 
     issuesOtherField.on( 'value-change', function () {
@@ -379,7 +379,7 @@
        */
       const otherIssues = issuesOtherField.getValue().value;
 
-      issuesHiddenField.setValue( { value: otherIssues ? ('Issues > ' + otherIssues.replace( ',', '/' )) : '' } )
+      issuesHiddenField.setValue( { value: otherIssues ? ('Issues > ' + otherIssues.replaceAll( ',', '/' )) : '' } )
     } )
   }
 
@@ -414,7 +414,7 @@
 
       // As user types in field, fill hidden field
       contactHiddenField.setValue( {
-        value: 'Contact mode: ' + other.replace( ',', '/' ),
+        value: 'Contact mode: ' + other.replaceAll( ',', '/' ),
       } );
     } );
 
@@ -433,7 +433,7 @@
 
         // As user types in field, fill hidden field
         contactHiddenField.setValue( {
-          value: 'Contact mode:' + other.replace( ',', '/' ),
+          value: 'Contact mode:' + other.replaceAll( ',', '/' ),
         } );
 
         return;
