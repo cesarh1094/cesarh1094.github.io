@@ -4,26 +4,58 @@
   // Ethnicity fields
   function handleEthnicityFields() {
     // IDs of Ethnicity fields
-    const ethnicityCheckBoxesFieldID = 97270574;
+    const ethnicityCheckBoxesFieldID = 97818790;
+    const ethnicityOtherFieldID      = 97818786;
     const ethnicityHiddenFieldID     = 97270677;
 
     // Fields
     const ethnicityCheckBoxField = loader.getEngine().getDocument().getElementById( ethnicityCheckBoxesFieldID );
+    const ethnicityOtherField    = loader.getEngine().getDocument().getElementById( ethnicityOtherFieldID );
     const ethnicityHiddenField   = loader.getEngine().getDocument().getElementById( ethnicityHiddenFieldID );
 
-    // This is ran every time a checkbox changes from "checked" to "not checked"
     ethnicityCheckBoxField.on( 'value-change', function () {
-      // Get current "state" of checkboxes
-      const checkBoxes = ethnicityCheckBoxField.getValue();
+      /**
+       * @type {string[]}
+       */
+      const checkBoxes = ethnicityCheckBoxField.getValue().values;
 
-      // Set comma-separated value to Ethnicity hidden field
-      // -> "checkbox value 1,checkbox value 2, ..."
-      ethnicityHiddenField.setValue( { value: checkBoxes.values.join() } );
+      if ( !checkBoxes.includes( 'Other' ) ) {
+        ethnicityHiddenField.setValue( { value: '' } );
+
+        return;
+      }
+
+      /**
+       * @type {string}
+       */
+      const otherGender = ethnicityOtherField.getValue().value;
+
+      ethnicityHiddenField.setValue( {
+        value: otherGender ? otherGender.replaceAll( ',', '/' ) : '',
+      } );
     } );
 
-    // Set comma-separated value to Ethnicity hidden field
-    // -> "checkbox value 1,checkbox value 2, ..."
-    ethnicityHiddenField.setValue( { value: ethnicityCheckBoxField.getValue().values.join() } );
+    ethnicityOtherField.on( 'value-change', function () {
+      /**
+       * @type {string[]}
+       */
+      const checkBoxes = ethnicityCheckBoxField.getValue().values;
+
+      if ( !checkBoxes.includes( 'Other' ) ) {
+        ethnicityHiddenField.setValue( { value: '' } );
+
+        return;
+      }
+
+      /**
+       * @type {string}
+       */
+      const otherGender = ethnicityOtherField.getValue().value;
+
+      ethnicityHiddenField.setValue( {
+        value: otherGender ? otherGender.replaceAll( ',', '/' ) : '',
+      } );
+    } );
   }
 
   function handleGenderFields() {
